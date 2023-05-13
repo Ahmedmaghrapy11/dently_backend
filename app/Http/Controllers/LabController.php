@@ -84,13 +84,16 @@ class LabController extends Controller
         }
         return [
             'user_favourites' => $user->favourites,
-            'message' => 'lab is added to favourites'
+            'message' => 'lab is added to favourites successfully!'
         ];
     }
 
     public function unFavourite(Lab $lab) {
         $user = auth()->user();
         LabFavourites::where('user_id', $user->id)->where('lab_id', $lab->id)->delete();
-        return $user->favourites;
+        return [
+            'user_favourites' => $user->favourites,
+            'message' => 'lab is removed from favourites successfully!'
+        ];
     }
 }
