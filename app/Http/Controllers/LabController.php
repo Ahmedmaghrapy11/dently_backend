@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lab;
+use App\Models\LabFavourites;
 use Illuminate\Http\Request;
 
 class LabController extends Controller
@@ -74,5 +75,22 @@ class LabController extends Controller
     public function search($name)
     {
         return Lab::where('name', 'like', '%'.$name.'%')->get();
+    }
+
+    public function favourite(Lab $lab) {
+        $user = auth()->user();
+        if($user->favourites->where('id','=', $lab->id)->count() == 0) {
+            LabFavourites::create(['user_id' => $user->id, 'lab_id' => $lab->id])->save();
+        }
+        return [
+            'user_favourites' => $user->favourites,
+            'message' => 'lab is added to favourites'
+        ];
+    }
+
+    public function unFavourite(Lab $lab) {
+        $user = auth()->user();
+        LabFavourites::where('user_id', $user->id)->where('lab_id', $lab->id)->delete();
+        return $user->favourites;
     }
 }

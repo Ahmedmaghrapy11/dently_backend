@@ -32,6 +32,10 @@ class User extends Authenticatable
         return $this->hasMany(Lab::class, 'user_id');
     }
 
+    public function favourites() {
+        return $this->belongsToMany(Lab::class, 'lab_favourites');
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *
