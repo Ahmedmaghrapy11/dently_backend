@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClinicController;
 use App\Http\Controllers\LabController;
+use App\Http\Controllers\OfferController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +38,20 @@ Route::post('/update-lab/{id}', [LabController::class, 'update']);
 Route::post('/delete-lab/{id}', [LabController::class, 'destroy']);
 Route::get('/labs/search/{name}', [LabController::class, 'search']);
 
+// products
+Route::get('/products', [ProductController::class, 'index']);
+Route::post('/create-product', [ProductController::class, 'store']);
+Route::post('/update-product/{id}', [ProductController::class, 'update']);
+Route::post('/delete-product/{id}', [ProductController::class, 'destroy']);
+Route::get('/products/search/{name}', [ProductController::class, 'search']);
+
+// offers
+Route::get('/offers', [OfferController::class, 'index']);
+Route::post('/create-offer', [OfferController::class, 'store']);
+Route::get('/offers/{id}', [OfferController::class, 'show']);
+Route::post('/update-lab/{id}', [OfferController::class, 'update']);
+Route::post('/delete-offer/{id}', [OfferController::class, 'destroy']);
+
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/logout', [AuthController::class, 'logout']);
@@ -44,4 +60,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/clinics/{id}', [ClinicController::class, 'show']);
     Route::post('/favourite/{lab}', [LabController::class, 'favourite']);
     Route::post('/un-favourite/{lab}', [LabController::class, 'unFavourite']);
+    Route::post('/labs/rate/{lab}', [LabController::class, 'rateLab']);
 });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Lab;
 use App\Models\LabFavourites;
+use App\Models\Ratings;
 use Illuminate\Http\Request;
 
 class LabController extends Controller
@@ -95,5 +96,31 @@ class LabController extends Controller
             'user_favourites' => $user->favourites,
             'message' => 'lab is removed from favourites successfully!'
         ];
+    }
+
+    public function rateLab(Request $request, Lab $lab) {
+        $user = auth()->user();
+        if (!$lab->ratings) {
+            $request->validate([
+                'rate' => 'required | numeric | min:0 | max:5'
+            ]);
+            $rating = new Ratings;
+            $rating->rate = $request->rate;
+            $rating->user_id = $user->id;
+            Ratings::create(['user_id' => $user->id, 'lab_id' => $lab->id, 'rate' => $rating->rate])->save();
+            dd($lab->ratings());
+            return response()->json(['message' => 'lab is rated successfully', 'rating' => $rating]);
+        }
+        else {
+            if ($user->id !== $lab->user_id) {
+                return response()->json(['message' => 'Action is forbidden']);
+            }
+            $request->validate([
+                'rate' => 'required | numeric | min:0 | max:5'
+            ]);
+            $lab->ratings = $request->rate;
+            $lab->ratings()->save($request->rate);
+            return response()->json(['message' => 'lab rating is updated successfully', 'rating' => $lab->ratings]);
+        }
     }
 }

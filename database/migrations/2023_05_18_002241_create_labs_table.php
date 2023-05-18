@@ -16,9 +16,11 @@ class CreateLabsTable extends Migration
         Schema::create('labs', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('address');
+            $table->decimal('longitude', 5, 2);
+            $table->decimal('latitude', 5, 2);
             $table->string('phone');
             $table->string('delivary_times');
+            $table->string('image');
             $table->boolean('maxillofacial');
             $table->boolean('digital');
             $table->boolean('pay_per_month');
