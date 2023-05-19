@@ -19,7 +19,10 @@ use App\Http\Controllers\ProductController;
 |
 */
 
-// authentication
+
+
+Route::middleware(['cors'])->group(function () {
+    // authentication
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
@@ -61,4 +64,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/favourite/{lab}', [LabController::class, 'favourite']);
     Route::post('/un-favourite/{lab}', [LabController::class, 'unFavourite']);
     Route::post('/labs/rate/{lab}', [LabController::class, 'rateLab']);
+});
 });
