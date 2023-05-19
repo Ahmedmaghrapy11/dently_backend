@@ -32,10 +32,6 @@ class User extends Authenticatable
         return $this->hasMany(Lab::class, 'user_id');
     }
 
-    public function products() {
-        return $this->hasMany(Product::class, 'user_id');
-    }
-
     public function favourites() {
         return $this->belongsToMany(Lab::class, 'lab_favourites');
     }

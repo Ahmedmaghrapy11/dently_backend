@@ -9,21 +9,26 @@ class Lab extends Model
 {
     use HasFactory;
 
-    protected $fillables = [
+    protected $fillable = [
+        'user_id',
         'name',
         'longitude',
         'latitude',
+        'city',
+        'image',
         'delivery_times',
         'phone',
         'image',
         'maxillofacial',
         'digital',
         'pay_per_month',
-        'user_id'
     ];
 
     public function user() {
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function products() {
+        return $this->hasMany(Product::class, 'product_id');
+    }
 }

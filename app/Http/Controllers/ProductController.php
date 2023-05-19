@@ -27,18 +27,20 @@ class ProductController extends Controller
     {
         $request->validate([
             'lab_id' => 'required',
-            'user_id' => 'required',
             'name' => 'required|string',
-            'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
-            'description' => 'string',
+            'material' => 'required|string',
+            'price' => 'required|number'
         ]);
-        $image_path = $request->file('image')->store('image', 'public');
         $product =  Product::create($request->all());
         $response = [
             'message' => 'offer is created successfully!',
             'product' => $product
         ];
         return response($response, 201);
+    }
+
+    public function getLabProducts($lab_id) {
+        return Product::where('lab_id', $lab_id);
     }
 
     /**

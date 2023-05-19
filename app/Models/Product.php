@@ -9,18 +9,12 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $fillables = [
+    protected $fillable = [
         'lab_id',
-        'user_id',
         'name',
-        'image',
-        'description',
+        'material',
         'price'
     ];
-
-    public function user() {
-        return $this->belongsTo(User::class, 'user_id');
-    }
 
     public function lab() {
         return $this->belongsTo(Lab::class, 'lab_id');

@@ -6,6 +6,7 @@ use App\Models\Lab;
 use App\Models\LabFavourites;
 use App\Models\Ratings;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class LabController extends Controller
 {
@@ -28,16 +29,32 @@ class LabController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'address' => 'required',
-            'phone' => 'required',
-            'delivary_times' => 'required',
+            'name' => 'required|string',
+            'longitude' =>'required|between:0,999.99',
+            'latitude' =>'required|between:0,999.99',
+            'city' => 'required|string',
+            'image' => 'required',
+            'phone' => 'required|string',
+            'delivary_times' => 'required|string',
             'maxillofacial' => 'required',
             'digital' => 'required',
             'pay_per_month' => 'required',
             'user_id' => 'required'
         ]);
-        $created =  Lab::create($request->all());
+        $imageName = Str::random(32).".".$request->image->getClientOriginalExtension();
+        $created =  Lab::create([
+            'user_id' => $request->user_id,
+            'name' => $request->name,
+            'longitude' => $request->longitude,
+            'latitude' => $request->latitude,
+            'city' => $request->city,
+            'image' => $imageName,
+            'phone' => $request->phone,
+            'delivary_times' => $request->delivary_times,
+            'maxillofacial' => $request->maxillofacial,
+            'digital' => $request->digital,
+            'pay_per_month' => $request->pay_per_month
+        ]);
         return [
             'message' => 'A new lab is created succesfully!',
             'created lab' => $created
@@ -122,5 +139,9 @@ class LabController extends Controller
             $lab->ratings()->save($request->rate);
             return response()->json(['message' => 'lab rating is updated successfully', 'rating' => $lab->ratings]);
         }
+    }
+
+    public function filterByCity($city) {
+        return Lab::where('city', 'like', '%'.$city.'%')->get();
     }
 }

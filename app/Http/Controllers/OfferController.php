@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\OfferStoreRequest;
 use App\Models\Offer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class OfferController extends Controller
 {
@@ -23,19 +26,28 @@ class OfferController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(OfferStoreRequest $request)
     {
-        $request->validate([
-            'lab_id' => 'required',
-            'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048'
-        ]);
-        $image_path = $request->file('image')->store('image', 'public');
-        $offer =  Offer::create($request->all());
-        $response = [
-            'message' => 'offer is created successfully!',
-            'offer' => $offer
-        ];
-        return response($response, 201);
+        try {
+
+            $imageName = Str::random(32).".".$request->image->getClientOriginalExtension();
+
+            Offer::create([
+                'lab_id' => $request->lab_id,
+                'image' => $imageName,
+            ]);
+            // save image
+            Storage::disk('public')->put($imageName, file_get_contents($request->image));
+
+            return response()->json([
+                'message' => 'Offer is created successfully'
+            ],201);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Something went wrong'
+            ], 500);
+        }
     }
 
     /**

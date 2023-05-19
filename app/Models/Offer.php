@@ -9,7 +9,7 @@ class Offer extends Model
 {
     use HasFactory;
 
-    protected $fillables = [
+    protected $fillable = [
         'lab_id',
         'image'
     ];

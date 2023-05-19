@@ -23,46 +23,46 @@ use App\Http\Controllers\ProductController;
 
 Route::middleware(['cors'])->group(function () {
     // authentication
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/login', [AuthController::class, 'login']);
 
-// clinics
-Route::get('/clinics', [ClinicController::class, 'index']);
-Route::post('/create-clinic', [ClinicController::class, 'store']);
-Route::get('/clinics/user/{id}', [ClinicController::class, 'userClinics']);
-Route::post('/update-clinic/{id}', [ClinicController::class, 'update']);
-Route::post('/delete-clinic/{id}', [ClinicController::class, 'destroy']);
+    // clinics
+    Route::get('/clinics', [ClinicController::class, 'index']);
+    Route::post('/create-clinic', [ClinicController::class, 'store']);
+    Route::get('/clinics/user/{id}', [ClinicController::class, 'userClinics']);
+    Route::post('/update-clinic/{id}', [ClinicController::class, 'update']);
+    Route::post('/delete-clinic/{id}', [ClinicController::class, 'destroy']);
 
-// labs
-Route::get('/labs', [LabController::class, 'index']);
-Route::post('/create-lab', [LabController::class, 'store']);
-Route::get('/labs/user/{id}', [LabController::class, 'userLabs']);
-Route::post('/update-lab/{id}', [LabController::class, 'update']);
-Route::post('/delete-lab/{id}', [LabController::class, 'destroy']);
-Route::get('/labs/search/{name}', [LabController::class, 'search']);
+    // labs
+    Route::get('/labs', [LabController::class, 'index']);
+    Route::post('/create-lab', [LabController::class, 'store']);
+    Route::get('/labs/user/{id}', [LabController::class, 'userLabs']);
+    Route::post('/update-lab/{id}', [LabController::class, 'update']);
+    Route::post('/delete-lab/{id}', [LabController::class, 'destroy']);
+    Route::get('/labs/search/{name}', [LabController::class, 'search']);
+    Route::get('/labs/city-filter/{city}', [LabController::class, 'filterByCity']);
 
-// products
-Route::get('/products', [ProductController::class, 'index']);
-Route::post('/create-product', [ProductController::class, 'store']);
-Route::post('/update-product/{id}', [ProductController::class, 'update']);
-Route::post('/delete-product/{id}', [ProductController::class, 'destroy']);
-Route::get('/products/search/{name}', [ProductController::class, 'search']);
+    // products
+    Route::get('/products', [ProductController::class, 'index']);
+    Route::post('/create-product', [ProductController::class, 'store']);
+    Route::post('/update-product/{id}', [ProductController::class, 'update']);
+    Route::post('/delete-product/{id}', [ProductController::class, 'destroy']);
+    Route::get('/products/search/{name}', [ProductController::class, 'search']);
+    Route::get('/lab-products/{id}', [ProductController::class, 'getLabProducts']);
 
-// offers
-Route::get('/offers', [OfferController::class, 'index']);
-Route::post('/create-offer', [OfferController::class, 'store']);
-Route::get('/offers/{id}', [OfferController::class, 'show']);
-Route::post('/update-lab/{id}', [OfferController::class, 'update']);
-Route::post('/delete-offer/{id}', [OfferController::class, 'destroy']);
+    // offers
+    Route::get('/offers', [OfferController::class, 'index']);
+    Route::post('/create-offer', [OfferController::class, 'store']);
+    Route::get('/offers/{id}', [OfferController::class, 'show']);
+    Route::post('/update-lab/{id}', [OfferController::class, 'update']);
+    Route::post('/delete-offer/{id}', [OfferController::class, 'destroy']);
 
 
-Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::post('/logout', [AuthController::class, 'logout']);
-    // Route::get('/profile', [DentistProfileController::class, 'profile']);
-    // Route::post('/create-profile', [DentistProfileController::class, 'create']);
-    Route::get('/clinics/{id}', [ClinicController::class, 'show']);
-    Route::post('/favourite/{lab}', [LabController::class, 'favourite']);
-    Route::post('/un-favourite/{lab}', [LabController::class, 'unFavourite']);
-    Route::post('/labs/rate/{lab}', [LabController::class, 'rateLab']);
-});
+    Route::group(['middleware' => ['auth:sanctum']], function () {
+        Route::post('/logout', [AuthController::class, 'logout']);
+        Route::get('/clinics/{id}', [ClinicController::class, 'show']);
+        Route::post('/favourite/{lab}', [LabController::class, 'favourite']);
+        Route::post('/un-favourite/{lab}', [LabController::class, 'unFavourite']);
+        Route::post('/labs/rate/{lab}', [LabController::class, 'rateLab']);
+    });
 });
