@@ -20,6 +20,7 @@ class CreateLabsTable extends Migration
             $table->decimal('latitude', 5, 2);
             $table->string('city');
             $table->string('phone');
+            $table->string('image');
             $table->string('delivary_times')->default('');
             $table->boolean('maxillofacial');
             $table->boolean('digital');

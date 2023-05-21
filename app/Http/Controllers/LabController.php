@@ -15,8 +15,14 @@ class LabController extends Controller
      */
     public function index()
     {
-        return Lab::all();
+        return Lab::withAvg('ratings', 'rate')->orderByRaw('ratings_avg_rate desc')->get();
     }
+
+    // // ordered labs by rating
+    // public function labsByRating()
+    // {
+    //     return Lab::;
+    // }
 
     public function userLabs($id)
     {
@@ -117,31 +123,24 @@ class LabController extends Controller
 
     public function rateLab(Request $request, Lab $lab) {
         $user = auth()->user();
-        if (!$lab->ratings) {
-            $request->validate([
-                'rate' => 'required | numeric | min:0 | max:5'
-            ]);
-            $rating = new Ratings;
-            $rating->rate = $request->rate;
-            $rating->user_id = $user->id;
-            Ratings::create(['user_id' => $user->id, 'lab_id' => $lab->id, 'rate' => $rating->rate])->save();
-            dd($lab->ratings());
-            return response()->json(['message' => 'lab is rated successfully', 'rating' => $rating]);
+        $request->validate([
+            'rate' => 'required | numeric | min:0 | max:5'
+        ]);
+        $old = $lab->ratings->where('user_id',$user->id);
+        if ($old->count() == 0) {
+            Ratings::create(['user_id' => $user->id, 'lab_id' => $lab->id, 'rate' => $request->rate])->save();
+            return response()->json(['message' => 'lab is rated successfully', 'rating' => $request->rate]);
         }
         else {
-            if ($user->id !== $lab->user_id) {
-                return response()->json(['message' => 'Action is forbidden']);
-            }
-            $request->validate([
-                'rate' => 'required | numeric | min:0 | max:5'
-            ]);
-            $lab->ratings = $request->rate;
-            $lab->ratings()->save($request->rate);
-            return response()->json(['message' => 'lab rating is updated successfully', 'rating' => $lab->ratings]);
+            $old = $old->first();
+            $old->rate = $request->rate;
+            $old->save();
+            return response()->json(['message' => 'lab rating is updated successfully']);
         }
     }
 
     public function filterByCity($city) {
         return Lab::where('city', 'like', '%'.$city.'%')->get();
     }
+
 }

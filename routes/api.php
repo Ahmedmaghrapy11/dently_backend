@@ -35,6 +35,7 @@ Route::middleware(['cors'])->group(function () {
 
     // labs
     Route::get('/labs', [LabController::class, 'index']);
+    Route::get('/labs/{id}', [LabController::class, 'show']);
     Route::post('/create-lab', [LabController::class, 'store']);
     Route::get('/labs/user/{id}', [LabController::class, 'userLabs']);
     Route::post('/update-lab/{id}', [LabController::class, 'update']);
@@ -57,7 +58,7 @@ Route::middleware(['cors'])->group(function () {
     Route::post('/update-lab/{id}', [OfferController::class, 'update']);
     Route::post('/delete-offer/{id}', [OfferController::class, 'destroy']);
 
-
+    // must be authenticated
     Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::post('/logout', [AuthController::class, 'logout']);
         Route::get('/clinics/{id}', [ClinicController::class, 'show']);

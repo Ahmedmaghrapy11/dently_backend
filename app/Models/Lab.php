@@ -24,11 +24,23 @@ class Lab extends Model
         'pay_per_month',
     ];
 
+    protected $appends = [
+        'rate'
+    ];
+
+    public function getRateAttribute() {
+        return $this->ratings->avg('rate');
+    }
+
     public function user() {
         return $this->belongsTo(User::class, 'user_id');
     }
 
     public function products() {
         return $this->hasMany(Product::class, 'product_id');
+    }
+
+    public function ratings() {
+        return $this->hasMany(Ratings::class);
     }
 }
