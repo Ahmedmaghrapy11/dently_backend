@@ -26,15 +26,17 @@ class ClinicController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'address' => 'required',
+            'name' => 'required|string',
+            'city' => 'required|string',
+            'longitude' =>'required|between:0,999.99',
+            'latitude' =>'required|between:0,999.99',
             'phone' => 'required',
             'times' => 'required',
             'user_id' => 'required'
         ]);
         $created =  Clinic::create($request->all());
         return [
-            'message' => 'clinic is created succesfully!',
+            'message' => 'clinic is created successfully!',
             'created clinic' => $created
         ];
     }
@@ -65,6 +67,9 @@ class ClinicController extends Controller
      */
     public function destroy(string $id)
     {
-        return Clinic::destroy($id);
+        Clinic::destroy($id);
+        return [
+            'message' => 'clinic is deleted successfully!'
+        ];
     }
 }

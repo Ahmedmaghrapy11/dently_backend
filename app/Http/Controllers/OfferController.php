@@ -86,6 +86,9 @@ class OfferController extends Controller
      */
     public function destroy($id)
     {
-        return Offer::destroy($id);
+        Offer::destroy($id);
+        return [
+            'message' => 'offer is deleted successfully!'
+        ];
     }
 }

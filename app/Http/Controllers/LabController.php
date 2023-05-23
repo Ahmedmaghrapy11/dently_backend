@@ -62,7 +62,7 @@ class LabController extends Controller
             'pay_per_month' => $request->pay_per_month
         ]);
         return [
-            'message' => 'A new lab is created succesfully!',
+            'message' => 'A new lab is created successfully!',
             'created lab' => $created
         ];
     }
@@ -93,7 +93,9 @@ class LabController extends Controller
      */
     public function destroy(string $id)
     {
-        return Lab::destroy($id);
+        return [
+            'message' => 'lab is deleted successfully!'
+        ];
     }
 
     public function search($name)
