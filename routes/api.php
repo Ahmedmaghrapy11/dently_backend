@@ -42,6 +42,7 @@ Route::middleware(['cors'])->group(function () {
     Route::post('/delete-lab/{id}', [LabController::class, 'destroy']);
     Route::get('/labs/search/{name}', [LabController::class, 'search']);
     Route::get('/labs/city-filter/{city}', [LabController::class, 'filterByCity']);
+    Route::post('/labs/rate/{lab}', [LabController::class, 'rateLab']);
 
     // products
     Route::get('/products', [ProductController::class, 'index']);
@@ -64,6 +65,6 @@ Route::middleware(['cors'])->group(function () {
         Route::get('/clinics/{id}', [ClinicController::class, 'show']);
         Route::post('/favourite/{lab}', [LabController::class, 'favourite']);
         Route::post('/un-favourite/{lab}', [LabController::class, 'unFavourite']);
-        Route::post('/labs/rate/{lab}', [LabController::class, 'rateLab']);
+
     });
 });

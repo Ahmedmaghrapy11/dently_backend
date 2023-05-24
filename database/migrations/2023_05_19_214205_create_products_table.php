@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
             $table->foreignId('lab_id');
             $table->string('name');
             $table->string('material');
-            $table->decimal('price', 5, 2);
+            $table->decimal('price', 12, 2);
             $table->timestamps();
         });
     }

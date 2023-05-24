@@ -29,11 +29,11 @@ class ProductController extends Controller
             'lab_id' => 'required',
             'name' => 'required|string',
             'material' => 'required|string',
-            'price' => 'required|number'
+            'price' => 'required|numeric|between:0,9999999999.99'
         ]);
         $product =  Product::create($request->all());
         $response = [
-            'message' => 'offer is created successfully!',
+            'message' => 'product is created successfully!',
             'product' => $product
         ];
         return response($response, 201);
