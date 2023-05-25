@@ -74,7 +74,7 @@ class ProductController extends Controller
     {
         if (Product::destroy($id)) {
             return [
-                'message' => 'offer is deleted successfully!'
+                'message' => 'product is deleted successfully!'
             ];
         }
         else {
