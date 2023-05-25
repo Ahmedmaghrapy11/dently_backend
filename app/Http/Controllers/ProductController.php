@@ -72,9 +72,15 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        Product::destroy($id);
-        return [
-            'message' => 'product is deleted successfully!'
-        ];
+        if (Product::destroy($id)) {
+            return [
+                'message' => 'offer is deleted successfully!'
+            ];
+        }
+        else {
+            return [
+                'message' => 'something went wrong!'
+            ];
+        }
     }
 }

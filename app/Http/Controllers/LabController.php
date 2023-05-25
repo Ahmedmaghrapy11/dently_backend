@@ -93,9 +93,16 @@ class LabController extends Controller
      */
     public function destroy(string $id)
     {
-        return [
-            'message' => 'lab is deleted successfully!'
-        ];
+        if (Lab::destroy($id)) {
+            return [
+                'message' => 'lab is deleted successfully!'
+            ];
+        }
+        else {
+            return [
+                'message' => 'something went wrong!'
+            ];
+        }
     }
 
     public function search($name)

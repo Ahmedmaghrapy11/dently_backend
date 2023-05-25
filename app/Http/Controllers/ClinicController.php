@@ -67,9 +67,15 @@ class ClinicController extends Controller
      */
     public function destroy(string $id)
     {
-        Clinic::destroy($id);
-        return [
-            'message' => 'clinic is deleted successfully!'
-        ];
+        if (Clinic::destroy($id)) {
+            return [
+                'message' => 'clinic is deleted successfully!'
+            ];
+        }
+        else {
+            return [
+                'message' => 'something went wrong!'
+            ];
+        }
     }
 }
