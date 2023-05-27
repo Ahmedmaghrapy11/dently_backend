@@ -6,17 +6,10 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use Otp;
 
-class EmailVerificationNotification extends Notification
+class VerificationNotification extends Notification
 {
     use Queueable;
-
-    public $message;
-    public $subject;
-    public $fromEmail;
-    public $mailer;
-    private $otp;
 
     /**
      * Create a new notification instance.
@@ -25,11 +18,7 @@ class EmailVerificationNotification extends Notification
      */
     public function __construct()
     {
-        $this->message = 'Use the below code for verification process.';
-        $this->subject = 'Verification needed';
-        $this->fromEmail = 'test@maghrapy11.com';
-        $this->mailer = 'smtp';
-        $this->otp = new Otp;
+        //
     }
 
     /**
@@ -51,13 +40,10 @@ class EmailVerificationNotification extends Notification
      */
     public function toMail($notifiable)
     {
-        $otp = $this->otp->generate($notifiable->email, 6, 60);
         return (new MailMessage)
-                ->mailer('smtp')
-                ->subject($this->subject)
-                ->greeting('Hello'.$notifiable->first_name)
-                ->line($this->message)
-                ->line('code: '.$otp->token);
+                    ->line('The introduction to the notification.')
+                    ->action('Notification Action', url('/'))
+                    ->line('Thank you for using dently! please verify your email.');
     }
 
     /**

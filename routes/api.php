@@ -67,4 +67,9 @@ Route::middleware(['cors'])->group(function () {
         Route::post('/un-favourite/{lab}', [LabController::class, 'unFavourite']);
 
     });
+    // email verification
+    Route::middleware('auth:api')->group(function () {
+        Route::get('/email/verify/{id}/{hash}', 'VerificationApiController@verify')->name('verificationapi.verify');
+        Route::post('/email/resend', 'VerificationApiController@resend')->name('verificationapi.resend');
+    });
 });
