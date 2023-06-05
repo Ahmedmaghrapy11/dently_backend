@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Notifications\MyNotification;
 use App\Notifications\VerificationNotification;
 use Illuminate\Http\Response;
-use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -27,7 +27,7 @@ class AuthController extends Controller
             'password' => bcrypt($fields['password'])
         ]);
         // Trigger the notification
-        Notification::send($user, new VerificationNotification);
+        Notification::send($user, new VerificationNotification($user));
         $token = $user->createToken('myapptoken')->plainTextToken;
         $response = [
             'message' => 'user is created successfully and a notification is sent!',

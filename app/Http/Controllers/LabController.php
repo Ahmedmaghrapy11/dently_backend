@@ -6,6 +6,7 @@ use App\Models\Lab;
 use App\Models\LabFavourites;
 use App\Models\Ratings;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class LabController extends Controller
@@ -61,6 +62,7 @@ class LabController extends Controller
             'digital' => $request->digital,
             'pay_per_month' => $request->pay_per_month
         ]);
+        Storage::disk('public')->put($imageName, file_get_contents($request->image));
         return [
             'message' => 'A new lab is created successfully!',
             'created lab' => $created
@@ -116,7 +118,7 @@ class LabController extends Controller
             LabFavourites::create(['user_id' => $user->id, 'lab_id' => $lab->id])->save();
         }
         return [
-            'user_favourites' => $user->favourites,
+            'user favourites' => $user->favourites,
             'message' => 'lab is added to favourites successfully!'
         ];
     }
@@ -125,8 +127,16 @@ class LabController extends Controller
         $user = auth()->user();
         LabFavourites::where('user_id', $user->id)->where('lab_id', $lab->id)->delete();
         return [
-            'user_favourites' => $user->favourites,
+            'user favourites' => $user->favourites,
             'message' => 'lab is removed from favourites successfully!'
+        ];
+    }
+
+    public function getUserFavourites() {
+        $user = auth()->user();
+        $userfavourites = $user->favourites;
+        return [
+            'user favourites' => $userfavourites
         ];
     }
 

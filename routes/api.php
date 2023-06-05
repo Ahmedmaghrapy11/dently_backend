@@ -28,29 +28,16 @@ Route::middleware(['cors'])->group(function () {
 
     // clinics
     Route::get('/clinics', [ClinicController::class, 'index']);
-    Route::post('/create-clinic', [ClinicController::class, 'store']);
-    Route::get('/clinics/user/{id}', [ClinicController::class, 'userClinics']);
-    Route::post('/update-clinic/{id}', [ClinicController::class, 'update']);
-    Route::post('/delete-clinic/{id}', [ClinicController::class, 'destroy']);
+
 
     // labs
     Route::get('/labs', [LabController::class, 'index']);
     Route::get('/labs/{id}', [LabController::class, 'show']);
-    Route::post('/create-lab', [LabController::class, 'store']);
-    Route::get('/labs/user/{id}', [LabController::class, 'userLabs']);
-    Route::post('/update-lab/{id}', [LabController::class, 'update']);
-    Route::post('/delete-lab/{id}', [LabController::class, 'destroy']);
-    Route::get('/labs/search/{name}', [LabController::class, 'search']);
-    Route::get('/labs/city-filter/{city}', [LabController::class, 'filterByCity']);
-    Route::post('/labs/rate/{lab}', [LabController::class, 'rateLab']);
+
 
     // products
     Route::get('/products', [ProductController::class, 'index']);
-    Route::post('/create-product', [ProductController::class, 'store']);
-    Route::post('/update-product/{id}', [ProductController::class, 'update']);
-    Route::post('/delete-product/{id}', [ProductController::class, 'destroy']);
-    Route::get('/products/search/{name}', [ProductController::class, 'search']);
-    Route::get('/lab-products/{id}', [ProductController::class, 'getLabProducts']);
+
 
     // offers
     Route::get('/offers', [OfferController::class, 'index']);
@@ -65,6 +52,31 @@ Route::middleware(['cors'])->group(function () {
         Route::get('/clinics/{id}', [ClinicController::class, 'show']);
         Route::post('/favourite/{lab}', [LabController::class, 'favourite']);
         Route::post('/un-favourite/{lab}', [LabController::class, 'unFavourite']);
+
+        // auth lab
+        Route::post('/create-lab', [LabController::class, 'store']);
+        Route::get('/labs/user/{id}', [LabController::class, 'userLabs']);
+        Route::post('/update-lab/{id}', [LabController::class, 'update']);
+        Route::post('/delete-lab/{id}', [LabController::class, 'destroy']);
+        Route::get('/labs/search/{name}', [LabController::class, 'search']);
+        Route::post('/labs/favourite/{lab}', [LabController::class, 'favourite']);
+        Route::post('/labs/un-favourite/{lab}', [LabController::class, 'unFavourite']);
+        Route::post('/labs/favourites', [LabController::class, 'getUserFavourites']);
+        Route::get('/labs/city-filter/{city}', [LabController::class, 'filterByCity']);
+        Route::post('/labs/rate/{lab}', [LabController::class, 'rateLab']);
+
+        // auth product
+        Route::post('/create-product', [ProductController::class, 'store']);
+        Route::post('/update-product/{id}', [ProductController::class, 'update']);
+        Route::post('/delete-product/{id}', [ProductController::class, 'destroy']);
+        Route::get('/products/search/{name}', [ProductController::class, 'search']);
+        Route::get('/lab-products/{id}', [ProductController::class, 'getLabProducts']);
+
+        // auth clinics
+        Route::post('/create-clinic', [ClinicController::class, 'store']);
+        Route::get('/clinics/user/{id}', [ClinicController::class, 'userClinics']);
+        Route::post('/update-clinic/{id}', [ClinicController::class, 'update']);
+        Route::post('/delete-clinic/{id}', [ClinicController::class, 'destroy']);
 
     });
     // email verification

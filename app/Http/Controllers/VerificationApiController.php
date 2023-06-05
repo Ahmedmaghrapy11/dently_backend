@@ -8,19 +8,19 @@ use Illuminate\Http\Request;
 
 class VerificationApiController extends Controller
 {
-    public function verify(Request $request, $id, $hash) {
+    public function verify($id) {
 
         $user = User::find($id);
 
         if ($user->hasVerifiedEmail()) {
-            return response()->json('Email already verified.');
+            return view('alreadyVerified');
         }
 
         if ($user->markEmailAsVerified()) {
             event(new Verified($user));
         }
 
-        return response()->json('Email verified successfully.');
+        return view('verifiedSuccess');
     }
 
     public function resend(Request $request) {

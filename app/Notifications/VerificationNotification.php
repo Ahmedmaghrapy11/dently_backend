@@ -16,9 +16,11 @@ class VerificationNotification extends Notification
      *
      * @return void
      */
-    public function __construct()
+    public $user;
+
+    public function __construct($user)
     {
-        //
+        $this->user = $user;
     }
 
     /**
@@ -41,8 +43,8 @@ class VerificationNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
+                    ->line('dently varification notification.')
+                    ->action('Click to verify', url('/mail-verify/'.$this->user->id))
                     ->line('Thank you for using dently! please verify your email.');
     }
 
