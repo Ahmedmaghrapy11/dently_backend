@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClinicController;
 use App\Http\Controllers\LabController;
 use App\Http\Controllers\OfferController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 
 /*
@@ -45,6 +46,15 @@ Route::middleware(['cors'])->group(function () {
     Route::get('/offers/{id}', [OfferController::class, 'show']);
     Route::post('/update-lab/{id}', [OfferController::class, 'update']);
     Route::post('/delete-offer/{id}', [OfferController::class, 'destroy']);
+
+    // orders
+    Route::get('/orders', [OrderController::class, 'index']);
+    Route::get('/orders/{lab}', [OrderController::class, 'getLabOrders']);
+    Route::get('/orders/{clinic}', [OrderController::class, 'getClinicOrders']);
+    Route::get('/orders/user', [OrderController::class, 'getUserOrders']);
+    Route::post('/order/create', [OrderController::class, 'store']);
+    Route::post('/order/update/{id}', [OrderController::class, 'update']);
+    Route::post('/order/delete/{id}', [OrderController::class, 'destroy']);
 
     // must be authenticated
     Route::group(['middleware' => ['auth:sanctum']], function () {

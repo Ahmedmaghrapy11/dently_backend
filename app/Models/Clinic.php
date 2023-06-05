@@ -22,4 +22,8 @@ class Clinic extends Model
     public function user() {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function orders() {
+        return $this->hasMany(Order::class, 'order_id');
+    }
 }

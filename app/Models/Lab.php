@@ -40,6 +40,10 @@ class Lab extends Model
         return $this->hasMany(Product::class, 'product_id');
     }
 
+    public function orders() {
+        return $this->hasMany(Order::class, 'order_id');
+    }
+
     public function ratings() {
         return $this->hasMany(Ratings::class);
     }
