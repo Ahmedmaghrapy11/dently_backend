@@ -34,10 +34,11 @@ class OrderController extends Controller
             'case_number' => 'required|numeric|between:0,9999999999.99',
             'patient_name' => 'required|string',
             'gender' => 'required|string',
+            'status' => 'required|string',
             'due_date' => 'required|date',
             'product_type' => 'required|string',
             'payment_type' => 'required|string',
-            'expected_receive_date' => 'required|date',
+            'expected_receive_date' => 'date_format:d/m/Y|after:6/6/2023',
             'shade' => 'required|string',
             'stain' => 'required|string',
             'description' => 'required|string',
@@ -66,18 +67,19 @@ class OrderController extends Controller
 
     // get orders of specific lab
     public function getLabOrders(Lab $lab) {
-        return Order::where('lab_id', $lab->lab_id);
+        return Order::where('lab_id', $lab->id)->get();
     }
 
     // get orders on specific clinic
     public function getClinicOrders(Clinic $clinic) {
-        return Order::where('clinic_id', $clinic->clinic_id);
+        $order = Order::where('clinic_id', $clinic->id)->get();
+        return $order;
     }
 
     // get all orders of specific user
     public function getUserOrders() {
         $user = auth()->user();
-        return Order::where('user_id', $user->user_id);
+        return Order::where('user_id', $user->id)->get();
     }
 
     /**
@@ -94,6 +96,17 @@ class OrderController extends Controller
         return [
             'message' => 'order is updated successfully!',
             'updated order' => $order
+        ];
+    }
+
+    // update status of order
+    public function updateStatus(Request $request, $id)
+    {
+        $order = Order::find($id);
+        $order->update(['status' => $request->status]);
+        return [
+            'message' => 'order status is updated successfully!',
+            'new status' => $order->status
         ];
     }
 

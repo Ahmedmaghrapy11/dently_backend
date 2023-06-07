@@ -48,7 +48,10 @@ class LabController extends Controller
             'pay_per_month' => 'required',
             'user_id' => 'required'
         ]);
-        $imageName = Str::random(32).".".$request->image->getClientOriginalExtension();
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = Str::random(32).".".$image->getClientOriginalExtension();
+        }
         $created =  Lab::create([
             'user_id' => $request->user_id,
             'name' => $request->name,

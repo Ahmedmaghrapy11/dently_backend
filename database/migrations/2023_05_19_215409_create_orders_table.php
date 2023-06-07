@@ -21,14 +21,16 @@ class CreateOrdersTable extends Migration
             $table->integer('case_number');
             $table->string('patient_name');
             $table->string('gender');
-            $table->date('due_date');
+            $table->string('due_date');
             $table->string('product_type');
             $table->string('payment_type');
-            $table->date('expected_receive_date');
+            $table->string('expected_receive_date');
             $table->string('shade');
             $table->string('stain');
             $table->string('description');
+            $table->string('status');
             $table->boolean('is_fixed');
+            $table->string('payed')->default(0);
             $table->integer('restoration_type');
             $table->string('all_ceramics')->nullable();
             $table->string('post_and_core')->nullable();

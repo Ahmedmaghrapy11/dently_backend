@@ -49,12 +49,12 @@ Route::middleware(['cors'])->group(function () {
 
     // orders
     Route::get('/orders', [OrderController::class, 'index']);
-    Route::get('/orders/{lab}', [OrderController::class, 'getLabOrders']);
-    Route::get('/orders/{clinic}', [OrderController::class, 'getClinicOrders']);
-    Route::get('/orders/user', [OrderController::class, 'getUserOrders']);
-    Route::post('/order/create', [OrderController::class, 'store']);
-    Route::post('/order/update/{id}', [OrderController::class, 'update']);
-    Route::post('/order/delete/{id}', [OrderController::class, 'destroy']);
+    Route::get('/lab-orders/{lab}', [OrderController::class, 'getLabOrders']);
+    Route::get('/clinic-orders/{clinic}', [OrderController::class, 'getClinicOrders']);
+    Route::post('/orders/create', [OrderController::class, 'store']);
+    Route::post('/orders/update/{id}', [OrderController::class, 'update']);
+    Route::post('/orders/status-update/{}', [OrderController::class, 'updateStatus']);
+    Route::post('/orders/delete/{id}', [OrderController::class, 'destroy']);
 
     // must be authenticated
     Route::group(['middleware' => ['auth:sanctum']], function () {
@@ -87,6 +87,9 @@ Route::middleware(['cors'])->group(function () {
         Route::get('/clinics/user/{id}', [ClinicController::class, 'userClinics']);
         Route::post('/update-clinic/{id}', [ClinicController::class, 'update']);
         Route::post('/delete-clinic/{id}', [ClinicController::class, 'destroy']);
+
+        // auth orders
+        Route::get('/user-orders', [OrderController::class, 'getUserOrders']);
 
     });
     // email verification

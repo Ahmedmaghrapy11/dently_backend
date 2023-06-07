@@ -36,7 +36,8 @@ class Order extends Model
         'cast_partial_denture',
         'immediates',
         'teeth',
-        'miscellanceous'
+        'miscellanceous',
+        'status'
     ];
 
     public function user() {
