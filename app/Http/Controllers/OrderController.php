@@ -19,6 +19,10 @@ class OrderController extends Controller
         return Order::all();
     }
 
+    public function show($id) {
+        return Order::find($id);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

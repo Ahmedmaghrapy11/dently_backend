@@ -42,19 +42,7 @@ Route::middleware(['cors'])->group(function () {
 
     // offers
     Route::get('/offers', [OfferController::class, 'index']);
-    Route::post('/create-offer', [OfferController::class, 'store']);
-    Route::get('/offers/{id}', [OfferController::class, 'show']);
-    Route::post('/update-lab/{id}', [OfferController::class, 'update']);
-    Route::post('/delete-offer/{id}', [OfferController::class, 'destroy']);
 
-    // orders
-    Route::get('/orders', [OrderController::class, 'index']);
-    Route::get('/lab-orders/{lab}', [OrderController::class, 'getLabOrders']);
-    Route::get('/clinic-orders/{clinic}', [OrderController::class, 'getClinicOrders']);
-    Route::post('/orders/create', [OrderController::class, 'store']);
-    Route::post('/orders/update/{id}', [OrderController::class, 'update']);
-    Route::post('/orders/status-update/{id}', [OrderController::class, 'updateStatus']);
-    Route::post('/orders/delete/{id}', [OrderController::class, 'destroy']);
 
     // must be authenticated
     Route::group(['middleware' => ['auth:sanctum']], function () {
@@ -74,6 +62,22 @@ Route::middleware(['cors'])->group(function () {
         Route::post('/labs/favourites', [LabController::class, 'getUserFavourites']);
         Route::get('/labs/city-filter/{city}', [LabController::class, 'filterByCity']);
         Route::post('/labs/rate/{lab}', [LabController::class, 'rateLab']);
+
+        // offers
+        Route::post('/create-offer', [OfferController::class, 'store']);
+        Route::get('/offers/{id}', [OfferController::class, 'show']);
+        Route::post('/update-lab/{id}', [OfferController::class, 'update']);
+        Route::post('/delete-offer/{id}', [OfferController::class, 'destroy']);
+
+        // orders
+        Route::get('/orders', [OrderController::class, 'index']);
+        Route::get('/orders/{id}', [OrderController::class, 'show']);
+        Route::get('/lab-orders/{lab}', [OrderController::class, 'getLabOrders']);
+        Route::get('/clinic-orders/{clinic}', [OrderController::class, 'getClinicOrders']);
+        Route::post('/orders/create', [OrderController::class, 'store']);
+        Route::post('/orders/update/{id}', [OrderController::class, 'update']);
+        Route::post('/orders/status-update/{id}', [OrderController::class, 'updateStatus']);
+        Route::post('/orders/delete/{id}', [OrderController::class, 'destroy']);
 
         // auth product
         Route::post('/create-product', [ProductController::class, 'store']);
