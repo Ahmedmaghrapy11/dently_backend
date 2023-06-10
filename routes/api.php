@@ -53,7 +53,7 @@ Route::middleware(['cors'])->group(function () {
     Route::get('/clinic-orders/{clinic}', [OrderController::class, 'getClinicOrders']);
     Route::post('/orders/create', [OrderController::class, 'store']);
     Route::post('/orders/update/{id}', [OrderController::class, 'update']);
-    Route::post('/orders/status-update/{}', [OrderController::class, 'updateStatus']);
+    Route::post('/orders/status-update/{id}', [OrderController::class, 'updateStatus']);
     Route::post('/orders/delete/{id}', [OrderController::class, 'destroy']);
 
     // must be authenticated
