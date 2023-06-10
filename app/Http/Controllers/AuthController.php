@@ -48,7 +48,7 @@ class AuthController extends Controller
         // check password
         if(!$user || !Hash::check($fields['password'], $user->password)){
             return response([
-                'message' => 'Bad credintials'
+                'message' => 'Incorrect email or password, please try again!'
             ], 401);
         }
         $token = $user->createToken('myapptoken')->plainTextToken;
@@ -57,7 +57,7 @@ class AuthController extends Controller
             'user' => $user,
             'token' => $token
         ];
-        return response($response, 201);
+        return response($response, 200);
     }
 
     // logout a user

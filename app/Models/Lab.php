@@ -18,7 +18,6 @@ class Lab extends Model
         'image',
         'delivery_times',
         'phone',
-        'image',
         'maxillofacial',
         'digital',
         'pay_per_month',

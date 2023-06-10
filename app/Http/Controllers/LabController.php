@@ -19,12 +19,6 @@ class LabController extends Controller
         return Lab::withAvg('ratings', 'rate')->orderByRaw('ratings_avg_rate desc')->get();
     }
 
-    // // ordered labs by rating
-    // public function labsByRating()
-    // {
-    //     return Lab::;
-    // }
-
     public function userLabs($id)
     {
         return Lab::where('user_id', $id)->get();
