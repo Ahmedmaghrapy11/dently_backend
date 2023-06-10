@@ -16,7 +16,7 @@ class Lab extends Model
         'latitude',
         'city',
         'image',
-        'delivery_times',
+        'delivary_times',
         'phone',
         'maxillofacial',
         'digital',
