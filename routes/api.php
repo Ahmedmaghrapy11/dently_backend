@@ -84,7 +84,7 @@ Route::middleware(['cors'])->group(function () {
         Route::post('/update-product/{id}', [ProductController::class, 'update']);
         Route::post('/delete-product/{id}', [ProductController::class, 'destroy']);
         Route::get('/products/search/{name}', [ProductController::class, 'search']);
-        Route::get('/lab-products/{id}', [ProductController::class, 'getLabProducts']);
+        Route::get('/lab-products/{lab}', [ProductController::class, 'getLabProducts']);
 
         // auth clinics
         Route::post('/create-clinic', [ClinicController::class, 'store']);

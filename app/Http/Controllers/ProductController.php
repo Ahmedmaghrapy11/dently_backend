@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Lab;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -39,8 +40,8 @@ class ProductController extends Controller
         return response($response, 201);
     }
 
-    public function getLabProducts($lab_id) {
-        return Product::where('lab_id', $lab_id);
+    public function getLabProducts(Lab $lab) {
+        return Product::where('lab_id', $lab->id)->get();
     }
 
     /**
