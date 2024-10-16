@@ -1,64 +1,74 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Dently App - Backend RESTful API
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Introduction
+This repository contains the back-end RESTful API for the **Dently App**, a mobile application that facilitates communication between dentists and labs. Dentists can use the app to request tools, crowns, and other dental materials from labs. The back-end is developed using **PHP Laravel** with **MySQL** as the database.
 
-## About Laravel
+This project was developed as part of a graduation project, and I received an A+ for this work. The front-end of the application was built using **Dart Flutter** by my team members.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Technologies
+- **PHP**: ^7.3|^8.0
+- **Laravel**: ^8.75
+- **MySQL**: 8.x.x
+- **Dart Flutter** (for mobile app, handled by the front-end team)
+- **Composer**: Dependency management for PHP
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Features
+- **API for Dentist Requests**: Dentists can submit requests for dental tools, crowns, and other materials.
+- **Request Tracking**: Each request has a status (e.g., pending, approved, rejected, delivered).
+- **Lab Response Management**: Labs can view and respond to requests from dentists.
+- **User Authentication**: Secure authentication for both dentists and lab personnel.
+- **Role-based Access**: Different permissions for dentists and labs.
+- **Error Handling**: Proper validation and error messages for API requests.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Setup
 
-## Learning Laravel
+### 1. Clone the Repository
+To start, clone this repository to your local machine:
+```bash
+git clone https://github.com/Ahmedmaghrapy11/dently_backend.git
+cd dently_backend
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 2. Install Dependencies
+```bash
+composer install
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 3. Set Up Environment Variables
+- Create a .env file by copying .env.example:
+```bash
+cp .env.example .env
+```
+- Update the following database-related settings in the .env file to match your MySQL setup:
+```code
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=dently_db
+DB_USERNAME=your_mysql_username
+DB_PASSWORD=your_mysql_password
+```
 
-## Laravel Sponsors
+### 4. Set Up Environment Variables
+```sql 
+Create Database in MySQL
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### 5. Generate Application Key
+```bash 
+php artisan key:generate
+```
 
-### Premium Partners
+### 6. Run Migrations
+```bash 
+php artisan migrate
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 7. Run the Development Server
+```bash 
+php artisan serve
+```
+## Future Features
+- **Real-time Notifications**: Notify dentists and labs when a request status changes.
+- **Payment Integration**: Enable payments for dental tools directly through the app.
+- **Analytics Dashboard**: Provide a dashboard for labs to analyze requests and deliveries.
